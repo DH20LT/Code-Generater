@@ -14,6 +14,9 @@
         android:theme="@style/Theme.QRHomNay"
         tools:targetApi="31">
         <activity
+            android:name=".GenerateQRCode"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
@@ -22,11 +25,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".CaptureQRCode"
+        <activity
+            android:name=".CaptureQRCode"
             android:screenOrientation="portrait"
             android:stateNotNeeded="true"
-            android:theme="@style/zxing_CaptureTheme"/>
+            android:theme="@style/zxing_CaptureTheme" />
     </application>
 
 </manifest>

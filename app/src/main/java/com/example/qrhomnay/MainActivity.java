@@ -10,6 +10,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.journeyapps.barcodescanner.ScanContract;
@@ -18,6 +19,7 @@ import com.journeyapps.barcodescanner.ScanOptions;
 public class MainActivity extends AppCompatActivity {
     Button QuetQR;
     Button TaoQR;
+    TextView ResultScan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
     private void AddControls() {
         QuetQR = findViewById(R.id.quet_qr);
         TaoQR = findViewById(R.id.tao_qr);
+        ResultScan = findViewById(R.id.result_scan);
     }
 
     private void ScanCode() {
@@ -70,9 +73,18 @@ public class MainActivity extends AppCompatActivity {
                     ClipboardManager clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
                     ClipData clipData = ClipData.newPlainText("Ket Qua", result.getContents());
                     clipboardManager.setPrimaryClip(clipData);
+                    ResultScan.setText(result.getContents());
                     Toast.makeText(MainActivity.this, "Da copy thanh cong", Toast.LENGTH_SHORT).show();
                 }
-            });
+            }).setNeutralButton("Ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.dismiss();
+                }
+            }).create().show();
+        } else
+        {
+            Toast.makeText(MainActivity.this, "That bai", Toast.LENGTH_SHORT).show();
         }
     });
 }

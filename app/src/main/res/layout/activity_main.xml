@@ -9,6 +9,10 @@
     android:gravity="center"
     >
 
+    <TextView
+        android:id="@+id/result_scan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
     <Button
         android:id="@+id/quet_qr"
         android:layout_width="wrap_content"
