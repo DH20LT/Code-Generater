@@ -33,13 +33,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/btn_generate"
+        android:checkable="true"
         android:text="Barcode"/>
 
     <com.google.android.material.chip.Chip
-        android:id="@+id/chip5"
+        android:id="@+id/chip_qrcode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/chip4"
+        android:layout_below="@id/chip_barcode"
         android:checkable="true"
         android:text="QR Code"/>
 

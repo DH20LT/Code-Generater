@@ -19,21 +19,36 @@ import com.google.zxing.common.BitMatrix;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 
 public class GenerateQRCode extends AppCompatActivity {
-    ImageView iv_QRCode;
+    ImageView iv_Code;
     EditText et_Input;
     Button btn_Generate;
     Chip chipBarcode;
+    Chip chipQRCode;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_generate_qrcode);
+
+        chipBarcode.setChecked(true); // Bật nút này khi mở act
 
         AddControls();
         AddEvents();
     }
 
     private void AddEvents() {
+        chipBarcode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                chipQRCode.setChecked(false);
+            }
+        });
 
+        chipQRCode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                chipBarcode.setChecked(false);
+            }
+        });
 
         btn_Generate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,10 +59,11 @@ public class GenerateQRCode extends AppCompatActivity {
     }
 
     private void AddControls() {
-        iv_QRCode = findViewById(R.id.iv_qr_code);
+        iv_Code = findViewById(R.id.iv_qr_code);
         et_Input = findViewById(R.id.et_input);
         btn_Generate = findViewById(R.id.btn_generate);
         chipBarcode = findViewById(R.id.chip_barcode);
+        chipQRCode = findViewById(R.id.chip_qrcode);
     }
 
     private void GenerateQRCode() {
@@ -67,7 +83,7 @@ public class GenerateQRCode extends AppCompatActivity {
             Bitmap bitmap = barcodeEncoder.createBitmap(matrix);
 
             // Đẩy mã QR lên imageView
-            iv_QRCode.setImageBitmap(bitmap);
+            iv_Code.setImageBitmap(bitmap);
 
             // Set Input Method
             InputMethodManager manager = (InputMethodManager) getSystemService(
@@ -99,7 +115,7 @@ public class GenerateQRCode extends AppCompatActivity {
             Bitmap bitmap = barcodeEncoder.createBitmap(matrix);
 
             // Đẩy mã QR lên imageView
-            iv_QRCode.setImageBitmap(bitmap);
+            iv_Code.setImageBitmap(bitmap);
 
             // Set Input Method
             InputMethodManager manager = (InputMethodManager) getSystemService(
