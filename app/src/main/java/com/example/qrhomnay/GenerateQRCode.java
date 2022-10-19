@@ -6,10 +6,12 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.android.material.chip.Chip;
 import com.google.zxing.BarcodeFormat;
@@ -24,6 +26,8 @@ public class GenerateQRCode extends AppCompatActivity {
     Button btn_Generate;
     Chip chipBarcode;
     Chip chipQRCode;
+    ViewGroup.LayoutParams iv_Code_params;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,19 +40,34 @@ public class GenerateQRCode extends AppCompatActivity {
     }
 
     private void AddEvents() {
+        // BARCODE
         chipBarcode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 chipQRCode.setChecked(false);
 
+                iv_Code_params.height = 500;
+                iv_Code_params.width = 1000;
+                iv_Code.setLayoutParams(iv_Code_params);
+
                 btn_Generate.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        GenerateBarcode();
+
+                        if(et_Input.getText().toString().isEmpty()){
+                            Toast.makeText(
+                                    GenerateQRCode.this,
+                                    "Vui lòng nhập nội dung",
+                                    Toast.LENGTH_SHORT
+                            ).show();
+                        } else {
+                            GenerateBarcode();
+                        }
                     }
                 });
             }
         });
+
 
         // QR CODE
         chipQRCode.setOnClickListener(new View.OnClickListener() {
@@ -56,11 +75,22 @@ public class GenerateQRCode extends AppCompatActivity {
             public void onClick(View v) {
                 chipBarcode.setChecked(false);
 
+                iv_Code_params.height = 1000;
+                iv_Code_params.width = 1000;
+                iv_Code.setLayoutParams(iv_Code_params);
 
                 btn_Generate.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        GenerateQRCode();
+                        if(et_Input.getText().toString().isEmpty()){
+                            Toast.makeText(
+                                    GenerateQRCode.this,
+                                    "Vui lòng nhập nội dung",
+                                    Toast.LENGTH_SHORT
+                            ).show();
+                        } else {
+                            GenerateQRCode();
+                        }
                     }
                 });
             }
@@ -75,6 +105,7 @@ public class GenerateQRCode extends AppCompatActivity {
         btn_Generate = findViewById(R.id.btn_generate);
         chipBarcode = findViewById(R.id.chip_barcode);
         chipQRCode = findViewById(R.id.chip_qrcode);
+        iv_Code_params = iv_Code.getLayoutParams();
     }
 
     private void GenerateQRCode() {
