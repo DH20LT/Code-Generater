@@ -29,7 +29,7 @@ public class GenerateQRCode extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_generate_qrcode);
 
-        chipBarcode.setChecked(true); // Bật nút này khi mở act
+        // chipBarcode.setChecked(true); // Bật nút này khi mở act
 
         AddControls();
         AddEvents();
@@ -40,22 +40,33 @@ public class GenerateQRCode extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 chipQRCode.setChecked(false);
+
+                btn_Generate.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        GenerateBarcode();
+                    }
+                });
             }
         });
 
+        // QR CODE
         chipQRCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 chipBarcode.setChecked(false);
+
+
+                btn_Generate.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        GenerateQRCode();
+                    }
+                });
             }
         });
 
-        btn_Generate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                GenerateQRCode();
-            }
-        });
+
     }
 
     private void AddControls() {
@@ -106,7 +117,7 @@ public class GenerateQRCode extends AppCompatActivity {
         MultiFormatWriter writer = new MultiFormatWriter();
         try {
             // Create Bit matrix from text
-            BitMatrix matrix = writer.encode(text, BarcodeFormat.CODE_128, 300 ,300);
+            BitMatrix matrix = writer.encode(text, BarcodeFormat.CODE_128, 900 ,300);
 
             // Barcode encoder
             BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
