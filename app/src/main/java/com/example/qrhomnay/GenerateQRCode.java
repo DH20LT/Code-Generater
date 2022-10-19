@@ -33,6 +33,8 @@ public class GenerateQRCode extends AppCompatActivity {
     }
 
     private void AddEvents() {
+
+
         btn_Generate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -45,6 +47,7 @@ public class GenerateQRCode extends AppCompatActivity {
         iv_QRCode = findViewById(R.id.iv_qr_code);
         et_Input = findViewById(R.id.et_input);
         btn_Generate = findViewById(R.id.btn_generate);
+        chipBarcode = findViewById(R.id.chip_barcode);
     }
 
     private void GenerateQRCode() {
@@ -79,5 +82,35 @@ public class GenerateQRCode extends AppCompatActivity {
         }
     }
 
-    
+    private void GenerateBarcode() {
+        // Lấy dữ liệu đầu vào
+        String text = et_Input.getText().toString().trim();
+
+        // Multi format writer
+        MultiFormatWriter writer = new MultiFormatWriter();
+        try {
+            // Create Bit matrix from text
+            BitMatrix matrix = writer.encode(text, BarcodeFormat.CODE_128, 300 ,300);
+
+            // Barcode encoder
+            BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
+
+            // Create Bitmap from Bit Matrix
+            Bitmap bitmap = barcodeEncoder.createBitmap(matrix);
+
+            // Đẩy mã QR lên imageView
+            iv_QRCode.setImageBitmap(bitmap);
+
+            // Set Input Method
+            InputMethodManager manager = (InputMethodManager) getSystemService(
+                    Context.INPUT_METHOD_SERVICE
+            );
+
+            // Hide keyboard - neu khong an thi no sao luon hien sa?
+            manager.hideSoftInputFromWindow(et_Input.getApplicationWindowToken(), 0);
+
+        } catch (WriterException e) {
+            e.printStackTrace();
+        }
+    }
 }
