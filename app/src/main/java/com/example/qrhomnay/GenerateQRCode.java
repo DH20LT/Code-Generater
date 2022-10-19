@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.google.android.material.chip.Chip;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
@@ -21,6 +22,7 @@ public class GenerateQRCode extends AppCompatActivity {
     ImageView iv_QRCode;
     EditText et_Input;
     Button btn_Generate;
+    Chip chipBarcode;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +36,7 @@ public class GenerateQRCode extends AppCompatActivity {
         btn_Generate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                GenerateCode();
+                GenerateQRCode();
             }
         });
     }
@@ -45,7 +47,7 @@ public class GenerateQRCode extends AppCompatActivity {
         btn_Generate = findViewById(R.id.btn_generate);
     }
 
-    private void GenerateCode() {
+    private void GenerateQRCode() {
         // Lấy dữ liệu đầu vào
         String text = et_Input.getText().toString().trim();
 
@@ -76,4 +78,6 @@ public class GenerateQRCode extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
+    
 }
